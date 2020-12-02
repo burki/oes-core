@@ -79,7 +79,7 @@ class Oes
 
     static function debug($msg, $context = [])
     {
-        if (!self::$ACTIVATE_LOGGING) {
+        if (!self::$ACTIVATE_LOGGING || false === self::$logger) {
             return;
         }
         self::$logger->debug($msg, $context);
