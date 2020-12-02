@@ -43,6 +43,11 @@ function app_e($str)
 function oes_get_site_url($path)
 {
     $dir = ABSPATH;
+    if (DIRECTORY_SEPARATOR != '/') {
+        // windows uses backslash, so normalize before adjusting $path
+        $dir = str_replace(DIRECTORY_SEPARATOR, '/', $dir);
+        $path = str_replace(DIRECTORY_SEPARATOR, '/', $path);
+    }
     $path = str_replace($dir,"",$path);
     return site_url($path);
 }
@@ -989,7 +994,7 @@ function oes_register_post_type($postType, $singular, $plural)
 
 function oes_get_post_by_property($value, $postType = "post", $property = "name", $postStatus = 'publish')
 {
-    
+
     if ($postType == 'attachment') {
         $postStatus = 'inherit';
     }
